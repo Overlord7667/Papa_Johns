@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.PapaJohns" parent="Theme.Material3.DayNight">
+    <style name="Base.Theme.PapaJohns" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="actionBarStyle">
@@ -10,9 +10,6 @@
 
     <style name="Theme.PapaJohns" parent="Base.Theme.PapaJohns"/>
     <style name="ActionBar1" parent="Widget.AppCompat.ActionBar.Solid">
-        <item name="android:background">
-            @color/back
-        </item>
         <item name="background">
             @color/back
         </item>

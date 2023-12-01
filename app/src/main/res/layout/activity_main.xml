@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/backaction">
+    android:background="@color/backaction"
+    android:id="@+id/firstActivity">
 
     <RelativeLayout
         android:id="@+id/pizzasID"
@@ -14,7 +15,8 @@
         android:layout_height="250dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/btn_pizza"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="50dp"
+        android:onClick="pizzasShow">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/imgPiz"
@@ -49,7 +51,8 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/btn_pizza"
         android:layout_marginTop="100dp"
-        android:layout_below="@+id/pizzasID">
+        android:layout_below="@+id/pizzasID"
+        android:onClick="pastasShow">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/imgPasta"
