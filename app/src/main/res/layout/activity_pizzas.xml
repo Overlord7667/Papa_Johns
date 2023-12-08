@@ -5,13 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PizzaActivity"
+    tools:context=".PizzasActivity"
     android:background="@color/backaction">
 
     <ListView
         android:id="@+id/listPizzas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp" />
 
 </RelativeLayout>

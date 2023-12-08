@@ -3,17 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true">
 
     <RelativeLayout
         android:id="@+id/pizzas_cardID"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/btn_pizza"
         android:layout_marginTop="50dp"
-        android:onClick="pizzasShow">
+        android:background="@drawable/btn_pizza">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/img_cardPiz"
@@ -27,19 +26,20 @@
                 android:id="@+id/imgPizza"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/picca"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/picca" />
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/text_cardID"
+            android:id="@+id/text_cardsID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pizza"
-            android:textSize="24sp"
             android:layout_below="@+id/img_cardPiz"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="60dp"
+            android:text="Pizza"
             android:textColor="@color/white"
-            android:layout_marginTop="8dp"/>
+            android:textSize="24sp" />
     </RelativeLayout>
 </RelativeLayout>
