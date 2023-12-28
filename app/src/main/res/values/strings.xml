@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Papa John`s</string>
+    <string name="pizzas">Pizzas</string>
+    <string name="pastas">Pasta</string>
+    <string name="stories">Stories</string>
+    <string name="order">Create Order</string>
+    <string name="buy">Buy</string>
 </resources>

@@ -13,6 +13,13 @@
         android:theme="@style/Theme.PapaJohns"
         tools:targetApi="31">
         <activity
+            android:name=".ProductSelection"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PizzasActivity" />
+        </activity>
+        <activity
             android:name=".PastaActivity"
             android:exported="false">
             <meta-data
