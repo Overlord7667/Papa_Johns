@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,14 +18,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ProductSelection extends AppCompatActivity {
     Intent intent;
     private TextView textView;
     private TextView textView1;
     private TextView textView2;
-    private int counter = 0; // начальное значение
+    private TextView textView3;
+    private int counter = 1; // начальное значение
+    int initialPrice;
     private ImageView pizzasImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,35 +43,13 @@ public class ProductSelection extends AppCompatActivity {
         textView = findViewById(R.id.valueProduct);
         textView1 = findViewById(R.id.nameProduct);
         textView2 = findViewById(R.id.ingredients);
+        textView3 = findViewById(R.id.productPrice);
         Button plusButton = findViewById(R.id.plusButton);
         Button minusButton = findViewById(R.id.minusButton);
         pizzasImageView = findViewById(R.id.pizzasID);
 
-        String[] values = {"120 Cm", "180 Cm", "240 Cm"};
-
-        // Создаем адаптер для Spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, values);
-
-        // Устанавливаем стиль выпадающего списка
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Устанавливаем адаптер для Spinner
-        spinner.setAdapter(adapter);
-
-        // Устанавливаем обработчик выбора элемента в Spinner
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Выполняется при выборе элемента
-                String selectedValue = values[position];
-                Toast.makeText(ProductSelection.this, "Выбрано: " + selectedValue, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // Выполняется, если ничего не выбрано
-            }
-        });
+        // Вызов метода для обновления TextView
+        updateCounter();
 
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +57,9 @@ public class ProductSelection extends AppCompatActivity {
                 // Увеличение значения на 1 и обновление TextView
                 counter++;
                 updateCounter();
+
+                // Увеличение Price на заданное значение (например, Price1)
+                updatePrice(initialPrice);
             }
         });
 
@@ -82,8 +68,11 @@ public class ProductSelection extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Уменьшение значения на 1, но не менее 0, и обновление TextView
-                counter = Math.max(0, counter - 1);
+                counter = Math.max(1, counter - 1);
                 updateCounter();
+
+                // Уменьшение Price, но не менее изначального значения
+                updatePrice(initialPrice);
             }
         });
 
@@ -91,16 +80,83 @@ public class ProductSelection extends AppCompatActivity {
             Pizza selectedPizza = (Pizza) intent.getSerializableExtra("selectedPizza");
             // Теперь у вас есть объект selectedPizza с данными о выбранной пицце
             // Далее можете использовать эти данные в вашей новой активности
-            Toast.makeText(this, "Danie peredalis", Toast.LENGTH_SHORT).show();
             // Устанавливаем изображение пиццы в ImageView
             pizzasImageView.setImageResource(selectedPizza.getImageId());
             textView1.setText(selectedPizza.getName());
             textView2.setText(selectedPizza.getIngredients());
+
+            // Здесь можно использовать HashMap для сопоставления строк и цен
+            String[] values = {"120 Cm", "180 Cm", "240 Cm"};
+
+            // Устанавливаем обработчик выбора элемента в Spinner
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                    // Выполняется при выборе элемента
+                    String selectedValue = values[position];
+                    Toast.makeText(ProductSelection.this, "Выбрано: " + selectedValue, Toast.LENGTH_SHORT).show();
+
+//                    int selectedPrice = -1;
+                    // Пробегаем по каждому элементу values и сравниваем с selectedValue
+                    for (String value : values) {
+                        if (selectedValue.equals(value)) {
+                            switch (value) {
+                                case "120 Cm":
+                                    initialPrice = selectedPizza.getPrice1();
+//                                    Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case "180 Cm":
+                                    initialPrice = selectedPizza.getPrice2();
+//                                    Toast.makeText(this, "2", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case "240 Cm":
+                                    initialPrice = selectedPizza.getPrice3();
+//                                    Toast.makeText(this, "3", Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                            // Сбрасываем counter на 1 при изменении значения
+                            counter = 1;
+
+                            // Обновляем TextView для counter
+                            updateCounter();
+                        }
+
+                    }
+
+                    // Устанавливаем соответствующий Price в TextView
+                    if (initialPrice != -1) {
+                        textView3.setText("" + initialPrice);
+                    } else {
+                        Log.d("MyApp", "Invalid selection: " + selectedValue);
+                        textView3.setText("Invalid selection");
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parentView) {
+                    // Выполняется, если ничего не выбрано
+                }
+            });
+            // Создаем адаптер для Spinner
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, values);
+            // Устанавливаем адаптер для Spinner
+            spinner.setAdapter(adapter);
+
+            // Устанавливаем стиль выпадающего списка
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         }
     }
+
     // Обновление TextView с текущим значением
     private void updateCounter() {
         textView.setText(String.valueOf(counter));
+    }
+    private void updatePrice(int initialPrice) {
+        // Вычисление нового значения Price с учетом ограничения
+        int updatedPrice = initialPrice * counter;
+        // Обновление текста в TextView
+        textView3.setText("" + updatedPrice);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
