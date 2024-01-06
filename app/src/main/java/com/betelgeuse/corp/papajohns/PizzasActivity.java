@@ -31,22 +31,6 @@ import java.util.List;
 public class PizzasActivity extends AppCompatActivity {
     List<Pizza> AllPizzas = new ArrayList<>();
     Intent intent;
-    RelativeLayout selectedId;
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        intent = data;
-//
-//        if (data != null)
-//        {
-//            Toast.makeText(this, "NEWPIZZA", Toast.LENGTH_SHORT).show();
-//            String addPizza = intent.getStringExtra("key");
-//            AllPizzas.add(new Pizza(addPizza,R.drawable.picca, "vetchina", "140",1, 2000));
-//        }else {
-//            Toast.makeText(this, "NOT DATA", Toast.LENGTH_SHORT).show();
-//        }
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +39,8 @@ public class PizzasActivity extends AppCompatActivity {
         setTitle("Pizzas");
 
         intent = getIntent();
-//        pizzasAll = intent.getIntExtra("pizzas", 0);
         ListView listView = findViewById(R.id.listPizzas);
 
-//        String[] AllPizzasString = intent.getStringArrayExtra("pizzas");
         Pizza[] AllPizzasString = (Pizza[]) intent.getSerializableExtra("pizzas");
         if (AllPizzasString != null){
             for (int i = 0; i < AllPizzasString.length; i++) {
@@ -70,20 +52,19 @@ public class PizzasActivity extends AppCompatActivity {
             AllPizzas.add(new Pizza("Lachetti", R.drawable.picca, "ananas", 2001, 2002, 2003));
             AllPizzas.add(new Pizza("Peperoni", R.drawable.picca, "peperoni", 21, 22, 23));
 
-
-//        ArrayList<String> myList = (ArrayList<String>) intent.getSerializableExtra("myList");
-//        // Создайте адаптер для списка:
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, myList);
+        // Создайте адаптер для списка:
         PizzaAdapter pizzaAdapter = new PizzaAdapter(AllPizzas, this, R.layout.card_products);
         // Установите адаптер для списка:
         listView.setAdapter(pizzaAdapter);
-
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Получаем выбранный элемент из списка
+                Pizza selectedPizza = (Pizza) parent.getItemAtPosition(position);
                 Intent intent1 = new Intent(PizzasActivity.this, ProductSelection.class);
                 intent1.putExtra("title1", "PIZZA");
+                // Передаем объект Pizza в новую активность
+                intent1.putExtra("selectedPizza", selectedPizza);
                 setResult(0,intent1);
                 startActivity(intent1);
             }
