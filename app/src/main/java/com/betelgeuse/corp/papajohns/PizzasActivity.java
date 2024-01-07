@@ -1,14 +1,9 @@
 package com.betelgeuse.corp.papajohns;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.icu.text.CaseMap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,14 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,9 +78,11 @@ public class PizzasActivity extends AppCompatActivity {
             Intent intent = new Intent(this, PastaActivity.class);
             startActivity(intent);
             Toast.makeText(this, "PASTA", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.stories) {
+        } else if (id == R.id.stores) {
             Toast.makeText(this, "This is View", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.createorder) {
+        } else if (id == R.id.buy) {
+            Intent intent = new Intent(this, Orders.class);
+            startActivity(intent);
             Toast.makeText(this, "Order", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
@@ -107,7 +101,6 @@ public class PizzasActivity extends AppCompatActivity {
             TemplateLayout = templateLayout;
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
-
 
         @Override
         public int getCount() {
@@ -136,7 +129,8 @@ public class PizzasActivity extends AppCompatActivity {
         }
     }
 }
-    class Pizza implements Serializable {
+
+class Pizza implements Serializable {
     String Name;
     String Ingredients;
     int Price1;

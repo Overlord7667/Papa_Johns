@@ -1,8 +1,10 @@
 package com.betelgeuse.corp.papajohns;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,9 +19,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class ProductSelection extends AppCompatActivity {
     Intent intent;
     private TextView textView;
@@ -29,6 +28,9 @@ public class ProductSelection extends AppCompatActivity {
     private int counter = 1; // начальное значение
     int initialPrice;
     private ImageView pizzasImageView;
+    private Button addBtn;
+    private String selectedValue;
+    private Pizza selectedPizza;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,14 @@ public class ProductSelection extends AppCompatActivity {
         Button plusButton = findViewById(R.id.plusButton);
         Button minusButton = findViewById(R.id.minusButton);
         pizzasImageView = findViewById(R.id.pizzasID);
+        addBtn = findViewById(R.id.addBtn);
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showConfirmationDialog();
+            }
+        });
 
         // Вызов метода для обновления TextView
         updateCounter();
@@ -77,7 +87,7 @@ public class ProductSelection extends AppCompatActivity {
         });
 
         if (intent != null && intent.hasExtra("selectedPizza")) {
-            Pizza selectedPizza = (Pizza) intent.getSerializableExtra("selectedPizza");
+            selectedPizza = (Pizza) intent.getSerializableExtra("selectedPizza");
             // Теперь у вас есть объект selectedPizza с данными о выбранной пицце
             // Далее можете использовать эти данные в вашей новой активности
             // Устанавливаем изображение пиццы в ImageView
@@ -86,30 +96,29 @@ public class ProductSelection extends AppCompatActivity {
             textView2.setText(selectedPizza.getIngredients());
 
             // Здесь можно использовать HashMap для сопоставления строк и цен
-            String[] values = {"120 Cm", "180 Cm", "240 Cm"};
+            String[] values = {"Small, 120 Cm", "Medium, 180 Cm", "Large, 240 Cm"};
 
             // Устанавливаем обработчик выбора элемента в Spinner
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                     // Выполняется при выборе элемента
-                    String selectedValue = values[position];
+                    selectedValue = values[position];
                     Toast.makeText(ProductSelection.this, "Выбрано: " + selectedValue, Toast.LENGTH_SHORT).show();
-
 //                    int selectedPrice = -1;
                     // Пробегаем по каждому элементу values и сравниваем с selectedValue
                     for (String value : values) {
                         if (selectedValue.equals(value)) {
                             switch (value) {
-                                case "120 Cm":
+                                case "Small, 120 Cm":
                                     initialPrice = selectedPizza.getPrice1();
 //                                    Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
                                     break;
-                                case "180 Cm":
+                                case "Medium, 180 Cm":
                                     initialPrice = selectedPizza.getPrice2();
 //                                    Toast.makeText(this, "2", Toast.LENGTH_SHORT).show();
                                     break;
-                                case "240 Cm":
+                                case "Large, 240 Cm":
                                     initialPrice = selectedPizza.getPrice3();
 //                                    Toast.makeText(this, "3", Toast.LENGTH_SHORT).show();
                                     break;
@@ -146,6 +155,106 @@ public class ProductSelection extends AppCompatActivity {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         }
+        if (intent != null && intent.hasExtra("selectedPasta")) {
+            Pasta selectedPasta = (Pasta) intent.getSerializableExtra("selectedPasta");
+            // Теперь у вас есть объект selectedPizza с данными о выбранной пицце
+            // Далее можете использовать эти данные в вашей новой активности
+            // Устанавливаем изображение пиццы в ImageView
+            pizzasImageView.setImageResource(selectedPasta.getImageId());
+            textView1.setText(selectedPasta.getName());
+            textView2.setText(selectedPasta.getIngredients());
+
+            // Здесь можно использовать HashMap для сопоставления строк и цен
+            String[] values = {"Small, 200 Ml", "Medium, 350 Ml", "Large, 500 Ml"};
+
+            // Устанавливаем обработчик выбора элемента в Spinner
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                    // Выполняется при выборе элемента
+                    String selectedValue = values[position];
+                    Toast.makeText(ProductSelection.this, "Выбрано: " + selectedValue, Toast.LENGTH_SHORT).show();
+
+//                    int selectedPrice = -1;
+                    // Пробегаем по каждому элементу values и сравниваем с selectedValue
+                    for (String value : values) {
+                        if (selectedValue.equals(value)) {
+                            switch (value) {
+                                case "Small, 200 Ml":
+                                    initialPrice = selectedPasta.getPrice1();
+//                                    Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case "Medium, 350 Ml":
+                                    initialPrice = selectedPasta.getPrice2();
+//                                    Toast.makeText(this, "2", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case "Large, 500 Ml":
+                                    initialPrice = selectedPasta.getPrice3();
+//                                    Toast.makeText(this, "3", Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                            // Сбрасываем counter на 1 при изменении значения
+                            counter = 1;
+
+                            // Обновляем TextView для counter
+                            updateCounter();
+                        }
+                    }
+
+                    // Устанавливаем соответствующий Price в TextView
+                    if (initialPrice != -1) {
+                        textView3.setText("" + initialPrice);
+                    } else {
+                        Log.d("MyApp", "Invalid selection: " + selectedValue);
+                        textView3.setText("Invalid selection");
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parentView) {
+                    // Выполняется, если ничего не выбрано
+                }
+            });
+            // Создаем адаптер для Spinner
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, values);
+            // Устанавливаем адаптер для Spinner
+            spinner.setAdapter(adapter);
+
+            // Устанавливаем стиль выпадающего списка
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        }
+    }
+
+    private void showConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Подтверждаете выбор?")
+                .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Действие при нажатии "Да"
+                        // Можно добавить свой код здесь
+                        Intent intent = new Intent(ProductSelection.this, Orders.class);
+                        // Помещаем данные в Intent
+                        // Замените selectedImage на ваш реальный источник изображения
+                        intent.putExtra("image", selectedPizza.getImageId());
+                        intent.putExtra("name", textView1.getText().toString());
+                        intent.putExtra("spinnerItem", selectedValue);
+                        intent.putExtra("price", textView3.getText().toString());
+                        intent.putExtra("quantity", counter);
+                        startActivity(intent);
+                        dialog.dismiss(); // Закрываем диалог
+                    }
+                })
+                .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Действие при нажатии "Нет"
+                        // Можно добавить свой код здесь
+                        dialog.dismiss(); // Закрываем диалог
+                    }
+                });
+        // Создаем и отображаем диалог
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     // Обновление TextView с текущим значением
@@ -175,9 +284,11 @@ public class ProductSelection extends AppCompatActivity {
             Intent intent = new Intent(this, PastaActivity.class);
             startActivity(intent);
             Toast.makeText(this, "PASTA", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.stories) {
+        } else if (id == R.id.stores) {
             Toast.makeText(this, "This is View", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.createorder) {
+        } else if (id == R.id.buy) {
+            Intent intent = new Intent(this, Orders.class);
+            startActivity(intent);
             Toast.makeText(this, "Order", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);

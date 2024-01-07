@@ -3,17 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
 <!--    <item android:title="Bits and Pizzas"/>-->
     <item android:title="Pizzas" android:orderInCategory="1"
         app:showAsAction="never" android:id="@+id/pizzas"/>
     <item android:title="Pasta" android:orderInCategory="2"
         app:showAsAction="never" android:id="@+id/pasta"/>
-    <item android:title="Stories" android:orderInCategory="3"
-        app:showAsAction="never" android:id="@+id/stories"/>
-    <item android:title="Create Order" android:orderInCategory="4"
-        app:showAsAction="never" android:id="@+id/createorder"/>
+    <item android:title="Stores" android:orderInCategory="3"
+        app:showAsAction="never" android:id="@+id/stores"/>
     <item android:icon="@drawable/cart" app:showAsAction="always"
         android:title="" android:id="@+id/buy"/>
-
 </menu>

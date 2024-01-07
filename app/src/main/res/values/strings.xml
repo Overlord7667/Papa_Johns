@@ -5,4 +5,8 @@
     <string name="stories">Stories</string>
     <string name="order">Create Order</string>
     <string name="buy">Buy</string>
+    <string name="title_activity_orders">Orders</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
