@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true">
+
+    <RelativeLayout
+        android:id="@+id/cardOrderID"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="5dp"
+        android:background="@color/back">
+
+        <ImageView
+            android:id="@+id/imgOrder"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+        <TextView
+            android:id="@+id/nameOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/imgOrder"
+            android:text="NAME"
+            android:textColor="@color/white"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+        <ImageView
+            android:id="@+id/deleteOrderItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_delete_24"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:id="@+id/sizeID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Size:   "
+            android:layout_toRightOf="@+id/imgOrder"
+            android:layout_below="@+id/nameOrder"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/productSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Small, 220 Cm"
+            android:layout_toRightOf="@+id/sizeID"
+            android:layout_below="@+id/nameOrder"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/valueProductOrder"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:text="0"
+            android:textSize="19sp"
+            android:background="@color/white"
+            android:textAlignment="center"
+            android:elegantTextHeight="true"
+            android:layout_below="@+id/sizeID"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/minusButton"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:backgroundTint="@color/backaction"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/plusButton"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/sizeID"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@+id/valueProductOrder"
+            android:autoSizeTextType="uniform"
+            android:background="@color/backaction"
+            android:text="+"
+            android:textDirection="firstStrong"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/minusButton"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/sizeID"
+            android:layout_marginTop="15dp"
+            android:autoSizeTextType="uniform"
+            android:background="@color/backaction"
+            android:text="-"
+            android:textDirection="firstStrong"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@+id/imgOrder"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/valute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="円"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/sizeID"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/priseOrderValue"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:layout_toLeftOf="@+id/valute"
+            android:layout_below="@+id/sizeID"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="5dp"
+            android:textAlignment="textEnd"/>
+    </RelativeLayout>
+
+</RelativeLayout>
