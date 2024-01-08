@@ -12,8 +12,7 @@
         android:id="@+id/listOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_above="@+id/orderPrice"/>
+        android:layout_margin="10dp"/>
 
     <RelativeLayout
         android:id="@+id/orderPrice"
@@ -45,7 +44,7 @@
             android:id="@+id/totalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text="2500"
             android:textColor="@color/white"
             android:textSize="35sp"
             android:textStyle="bold"
